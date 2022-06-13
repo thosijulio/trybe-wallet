@@ -1,10 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import WalletHeader from '../components/WalletHeader';
 
 class Wallet extends React.Component {
   render() {
     return(
-      <h1>Wallet</h1>
+      <>
+        <WalletHeader />
+      </>
     )
   }
 }
