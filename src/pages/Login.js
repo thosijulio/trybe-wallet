@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Login.css';
 
 class Login extends React.Component {
@@ -13,18 +14,41 @@ class Login extends React.Component {
   }
 
   handleFormChange({ type, value }) {
+    const { state: { email, password }, validateEmail, validatePassword } = this;
+
     this.setState({
       [type]: value,
     });
+
+    // eslint-disable-next-line no-undef
+    const button = document.querySelector('.login-main-section a');
+    
+    if (validateEmail(email) && validatePassword(password)) {
+      button.style.pointerEvents = 'auto';
+      button.style.backgroundColor = '#3F3618';
+    } else {
+      button.style.pointerEvents = 'none';  
+    }
   }
 
   handleFormSubmit() {
-    const { state: { email, password } } = this;
+    const { validateEmail, validatePassword } = this;
 
-    if (email === '' || password === '') {
-      // eslint-disable-next-line no-undef
-      alert('Favor preencher usuário e senha.');
+    if ( validateEmail && validatePassword) {
+      console.log('teste');
+    } else {
+        // eslint-disable-next-line no-undef
+        alert('Favor preencher usuário e senha.');
     }
+  }
+
+  validateEmail(email) {
+    const regexValidation = /\S+@\S+\.\S+/;
+    return regexValidation.test(email);
+  }
+
+  validatePassword(password) {
+    return password.length >= 6;
   }
 
   render() {
@@ -48,7 +72,7 @@ class Login extends React.Component {
             required
             value={ password }
           />
-          <button onClick={ handleFormSubmit } type="button">Entrar</button>
+          <Link onClick={ handleFormSubmit } to="/carteira">Entrar</Link>
         </form>
       </main>
     )
