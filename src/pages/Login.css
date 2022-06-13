@@ -1,0 +1,56 @@
+.login-main-section {
+  align-items: center;
+  background-color: #6D8294;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.login-main-section form {
+  align-items: center;
+  background-color: #FFFFFF;
+  border: 3px solid #3F3618;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px;
+}
+
+.login-main-section i {
+  color: #6C6951;
+  margin-bottom: 20px;
+}
+
+.login-main-section h1 {
+  color: #3F3618;
+}
+
+.login-main-section input {
+  border: 2px solid #3F3618;
+  border-radius: 5px;
+  font-size: medium;
+  margin-bottom: 1px;
+  padding: 5px 0;
+  text-align: center;
+  width: 250px;
+}
+
+.login-main-section a {
+  align-items: center;
+  background-color: #6C6951;
+  border: 2px solid #3F3618;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  font-size: larger;
+  font-weight: 500;
+  justify-content: center;
+  margin: 15px auto;
+  pointer-events: none;
+  text-decoration: none;
+  width: 250px;
+}
