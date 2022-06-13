@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { changeEmailAction } from '../redux/actions';
 import './Login.css';
 
 class Login extends React.Component {
@@ -36,13 +39,15 @@ class Login extends React.Component {
   }
 
   handleFormSubmit() {
-    const { validateEmail, validatePassword } = this;
+    const {
+      props: { saveEmail },
+      state: { email, password },
+      validateEmail,
+      validatePassword,
+    } = this;
 
-    if ( validateEmail && validatePassword) {
-      console.log('teste');
-    } else {
-        // eslint-disable-next-line no-undef
-        alert('Favor preencher usuário e senha.');
+    if ( validateEmail(email) && validatePassword(password)) {
+      saveEmail(email);
     }
   }
 
@@ -83,4 +88,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (payload) => dispatch(changeEmailAction(payload))
+})
+
+Login.propTypes = {
+  saveEmail: PropTypes.func.isRequired,
+}
+
+export default connect(null, mapDispatchToProps)(Login);
