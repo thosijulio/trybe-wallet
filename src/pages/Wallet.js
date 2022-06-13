@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import AddExpense from '../components/AddExpense';
 import WalletHeader from '../components/WalletHeader';
 
 class Wallet extends React.Component {
@@ -7,6 +8,7 @@ class Wallet extends React.Component {
     return(
       <>
         <WalletHeader />
+        <AddExpense />
       </>
     )
   }
