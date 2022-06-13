@@ -23,11 +23,15 @@ class Login extends React.Component {
     // eslint-disable-next-line no-undef
     const button = document.querySelector('.login-main-section a');
     
-    if (validateEmail(email) && validatePassword(password)) {
+    if (
+      validateEmail(type === 'email' ? value : email) &&
+      validatePassword(type === 'password' ? value : password)
+    ) {
       button.style.pointerEvents = 'auto';
       button.style.backgroundColor = '#3F3618';
     } else {
-      button.style.pointerEvents = 'none';  
+      button.style.pointerEvents = 'none';
+      button.style.backgroundColor = '#6C6951';
     }
   }
 
