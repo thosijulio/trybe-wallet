@@ -11,7 +11,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case CHANGE_EMAIL:
       return {
         ...state,
-        payload,
+        email: payload,
       };
     default:
       return state;
