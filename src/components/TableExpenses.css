@@ -1,0 +1,29 @@
+.table-expenses-section {
+  background-color: #3F3618;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.table-expenses-section table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table-expenses-section table thead {
+  background-color: #6C6951;
+  color: #FFF;
+  height: 50px;
+  position: relative;
+}
+
+.table-expenses-section table tbody {
+  border-top: 25px solid transparent;
+  color: #fff;
+
+}
+
+.table-expenses-section table tbody tr td {
+  text-align: center;
+  border-bottom: 25px solid transparent;
+}
