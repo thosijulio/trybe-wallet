@@ -1,6 +1,7 @@
 .add-expense-form {
   align-items: center;
   background-color: #7E846B;
+  border-bottom: 2px solid #3F3618;
   display: flex;
   justify-content: space-evenly;
   height: 70px;
