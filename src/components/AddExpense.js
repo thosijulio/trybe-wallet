@@ -1,45 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { addExpensesAction } from '../redux/actions';
+import getCurrencies from '../services/getCurrencies';
 
 class AddExpense extends React.Component {
   constructor() {
     super();
+
+    this.INITIAL_EXPENSE = {
+      value: "0",
+      description: "",
+      currency: "USD",
+      method: "Dinheiro",
+      tag: "Alimentação",
+    }
+
     this.state = {
-      expense: {
-        value: "0",
-        description: "",
-        currency: "",
-        method: "Dinheiro",
-        tag: "Alimentação",
-        exchangeRates: {},
-      },
+      expense: this.INITIAL_EXPENSE,
       currencies: [],
     };
+
     this.handleFormChange = this.handleFormChange.bind(this);
+    this.submitForm = this.submitForm.bind(this);
   }
 
   componentDidMount() {
-    fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((result) => result.json())
-      .then((data) => {
-        const currencies = [];
-        const exchangeRates = {};
-
-        Object.keys(data).forEach((currency) => {
-          if (currency !== 'USDT') {
-            currencies.push(data[currency]);
-            exchangeRates[currency] = data[currency];
-          }
-        });
-        
+    getCurrencies()
+      .then((currencies) => {
         this.setState((prevState) => ({
+          expense: prevState.expense,
           currencies,
-          expense: {
-            ...prevState.expense,
-            exchangeRates,
-          }
         }));
-      });
+      })
   }
 
   handleFormChange({ id, value }) {
@@ -53,9 +46,41 @@ class AddExpense extends React.Component {
     );
   }
 
+  submitForm() {
+    const {
+      INITIAL_EXPENSE,
+      props: {
+        expenses,
+        sendExpenseAction,
+      },
+      state: {
+        expense,
+      },
+    } = this;
+
+    getCurrencies()
+      .then((currencies) => {
+        const newExpenses = [
+          ...expenses,
+          {
+            ...expense,
+            exchangeRates: currencies,
+            id: expenses.length + 1,
+          },
+        ];
+        sendExpenseAction(newExpenses);
+      });
+
+    this.setState((prevState) => ({
+      ...prevState,
+      expense: INITIAL_EXPENSE,
+    }))
+  }
+
   render() {
     const {
       handleFormChange,
+      submitForm,
       state: {
         expense: {
           description,
@@ -103,10 +128,25 @@ class AddExpense extends React.Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
-        <button type="submit">Adicionar Despesa</button>
+        <button id="btn-submit-form" onClick={ submitForm } type="button">Adicionar Despesa</button>
       </form>
     )
   }
 }
 
-export default connect()(AddExpense);
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  sendExpenseAction: (expense) => dispatch(addExpensesAction(expense)),
+});
+
+AddExpense.propTypes = {
+  expenses: PropTypes.shape({
+    length: PropTypes.number.isRequired,
+  }),
+  sendExpenseAction: PropTypes.func.isRequired,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddExpense);

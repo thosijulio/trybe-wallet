@@ -1,6 +1,6 @@
 export const CHANGE_EMAIL = 'CHANGE_EMAIL';
 export const CHANGE_CURRENCIES = 'CHANGE_CURRENCIES';
-export const CHANGE_EXPENSES = 'CHANGE_EXPENSES';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
 
 export const changeEmailAction = (payload) => ({
   type: CHANGE_EMAIL,
@@ -12,7 +12,7 @@ export const changeCurrenciesAction = (payload) => ({
   payload,
 });
 
-export const changeExpensesAction = (payload) => ({
-  type: CHANGE_EXPENSES,
+export const addExpensesAction = (payload) => ({
+  type: ADD_EXPENSES,
   payload,
 });
