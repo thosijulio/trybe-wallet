@@ -1,0 +1,21 @@
+.wallet-header {
+  align-items: center;
+  background-color: #6D8294;
+  border-bottom: 2px solid #3F3618;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.wallet-header i {
+  color: #fff;
+}
+
+.wallet-resume-section {
+  display: flex;
+}
+
+.wallet-resume-section h4 {
+  color: #fff;
+  margin-left: 20px;
+}
