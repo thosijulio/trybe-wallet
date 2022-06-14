@@ -1,8 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import './TableExpenses.css';
 
 class TableExpenses extends React.Component {
   render() {
+    const { props: { expenses } } = this;
+  
     return (
       <main className="table-expenses-section">
         <table>
@@ -20,61 +24,51 @@ class TableExpenses extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
-              <td>7</td>
-              <td>8</td>
-              <td>9</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
-              <td>7</td>
-              <td>8</td>
-              <td>9</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
-              <td>7</td>
-              <td>8</td>
-              <td>9</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
-              <td>7</td>
-              <td>8</td>
-              <td>9</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
-              <td>7</td>
-              <td>8</td>
-              <td>9</td>
-            </tr>
+            { expenses.map(({
+                description,
+                tag,
+                method,
+                value,
+                currency,
+                id,
+                exchangeRates,
+              }) => {
+                const exchangeSelectedRate = exchangeRates
+                  .filter((exchange) => exchange.code === currency)[0];
+
+                return (
+              <tr key={ id }>
+                <td>{ description }</td>
+                <td>{ tag }</td>
+                <td>{ method }</td>
+                <td>
+                  {
+                    parseFloat(value)
+                      .toLocaleString(
+                        'pt-BR',
+                        { currency: exchangeSelectedRate.code, style: 'currency' },
+                      )
+                  }</td>
+                <td>{ exchangeSelectedRate.name.split('/')[0] }</td>
+                <td>
+                  {
+                    parseFloat(exchangeSelectedRate.ask)
+                    .toLocaleString('pt-BR', { currency: 'BRL', style: 'currency' })
+                  }
+                </td>
+                <td>{
+                  (
+                    value * exchangeSelectedRate.ask
+                  ).toLocaleString(
+                  'pt-BR', { currency: 'BRL', style: 'currency' } 
+                  ) }</td>
+                <td>{ exchangeSelectedRate.name.split('/')[1] }</td>
+                <td>
+                  <button>Editar</button>
+                  <button>Excluir</button>
+                </td>
+              </tr>
+            )})}
           </tbody>
         </table>
       </main>
@@ -82,4 +76,12 @@ class TableExpenses extends React.Component {
   }
 }
 
-export default TableExpenses;
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+TableExpenses.propTypes = {
+  expenses: PropTypes.array.isRequiredm
+}
+
+export default connect(mapStateToProps)(TableExpenses);

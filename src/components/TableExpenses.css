@@ -20,10 +20,12 @@
 .table-expenses-section table tbody {
   border-top: 25px solid transparent;
   color: #fff;
-
 }
 
 .table-expenses-section table tbody tr td {
   text-align: center;
   border-bottom: 25px solid transparent;
+  font-size: medium;
+  max-width: 100px;
+  overflow: hidden;
 }
