@@ -1,0 +1,47 @@
+.add-expense-form {
+  align-items: center;
+  background-color: #7E846B;
+  display: flex;
+  justify-content: space-evenly;
+  height: 70px;
+}
+
+.add-expense-form label {
+  align-items: center;
+  color: #FFF;
+  display: flex;
+  flex-direction: column;
+  font-size: large;
+  font-weight: 500;
+  justify-content: center;
+  margin: 10px;
+}
+
+.add-expense-form label input, .add-expense-form label select {
+  border: 2px solid #3F3618;
+  border-radius: 8px;
+  color: #3F3618;
+  font-size: medium;
+  font-weight: 500;
+  padding: 2px 8px;
+}
+
+#value {
+  width: 70px;
+}
+
+#currency {
+  width: 90px;
+}
+
+#btn-submit-form {
+  background-color: #6D8294;
+  border: 2px solid #3F3618;
+  border-radius: 8px;
+  color: #FFF;
+  cursor: pointer;
+  font-size: large;
+  font-weight: 600;
+  height: 40px;
+  width: 200px;
+}

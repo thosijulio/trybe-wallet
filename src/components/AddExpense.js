@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addExpensesAction } from '../redux/actions';
 import getCurrencies from '../services/getCurrencies';
+import './AddExpense.css';
 
 class AddExpense extends React.Component {
   constructor() {
     super();
 
     this.INITIAL_EXPENSE = {
-      value: "0",
+      value: "",
       description: "",
       currency: "USD",
       method: "Dinheiro",
