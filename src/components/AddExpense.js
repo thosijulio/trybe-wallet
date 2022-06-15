@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { addExpensesAction } from '../redux/actions';
 import getCurrencies from '../services/getCurrencies';
@@ -83,9 +82,6 @@ class AddExpense extends React.Component {
     const {
       handleFormChange,
       submitForm,
-      props: {
-        email,
-      },
       state: {
         expense: {
           description,
@@ -95,7 +91,7 @@ class AddExpense extends React.Component {
       },
     } = this;
 
-    return email ? (
+    return (
       <form className="add-expense-form">
         <label htmlFor="value">
           Valor:
@@ -135,13 +131,12 @@ class AddExpense extends React.Component {
         </label>
         <button id="btn-submit-form" onClick={ submitForm } type="button">Adicionar Despesa</button>
       </form>
-    ): <Navigate to="/" />
+    )
   } 
 }
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
-  email: state.user.email,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -149,10 +144,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 AddExpense.propTypes = {
-  email: PropTypes.string.isRequired,
-  expenses: PropTypes.shape({
-    length: PropTypes.number.isRequired,
-  }),
+  expenses: PropTypes.arrayOf(
+    PropTypes.shape({
+      length: PropTypes.number.isRequired,
+    }),
+  ),
   sendExpenseAction: PropTypes.func.isRequired,
 }
 

@@ -64,8 +64,8 @@ class TableExpenses extends React.Component {
                   ) }</td>
                 <td>{ exchangeSelectedRate.name.split('/')[1] }</td>
                 <td>
-                  <button>Editar</button>
-                  <button>Excluir</button>
+                  <i className="fa-solid fa-pen-to-square" title="Editar despesa" />
+                  <i className="fa-solid fa-trash" title="Excluir despesa" />
                 </td>
               </tr>
             )})}
@@ -81,7 +81,7 @@ const mapStateToProps = (state) => ({
 });
 
 TableExpenses.propTypes = {
-  expenses: PropTypes.array.isRequiredm
+  expenses: PropTypes.array.isRequired,
 }
 
 export default connect(mapStateToProps)(TableExpenses);
