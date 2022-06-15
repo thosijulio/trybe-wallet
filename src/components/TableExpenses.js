@@ -66,7 +66,7 @@ class TableExpenses extends React.Component {
                   <td>
                     <i
                       className="fa-solid fa-trash"
-                      onClick={ () => removeExpense(id) } 
+                      onClick={ () => removeExpense(expense) } 
                       title="Excluir despesa"
                     />
                   </td>

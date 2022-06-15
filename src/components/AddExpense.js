@@ -75,6 +75,7 @@ class AddExpense extends React.Component {
             exchangeRates: currencies,
             id: expenses.length + 1,
             exchangeSelectedRate,
+            valueConverted,
           },
         ];
         const newTotal = parseFloat(totalExpense) + parseFloat(valueConverted)
