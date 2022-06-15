@@ -29,12 +29,9 @@ class TableExpenses extends React.Component {
                 tag,
                 method,
                 value,
-                currency,
                 id,
-                exchangeRates,
+                exchangeSelectedRate,
               }) => {
-                const exchangeSelectedRate = exchangeRates
-                  .filter((exchange) => exchange.code === currency)[0];
 
                 return (
               <tr key={ id }>

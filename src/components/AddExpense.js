@@ -61,15 +61,24 @@ class AddExpense extends React.Component {
 
     getCurrencies()
       .then((currencies) => {
+        const { props: { totalExpense } } = this;
+        
+        const exchangeSelectedRate = currencies
+          .filter((exchange) => exchange.code === expense.currency)[0];
+        
+        const valueConverted = expense.value * exchangeSelectedRate.ask;
+
         const newExpenses = [
           ...expenses,
           {
             ...expense,
             exchangeRates: currencies,
             id: expenses.length + 1,
+            exchangeSelectedRate,
           },
         ];
-        sendExpenseAction(newExpenses);
+        const newTotal = parseFloat(totalExpense) + parseFloat(valueConverted)
+        sendExpenseAction({expenses: newExpenses, totalExpense: newTotal });
       });
 
     this.setState((prevState) => ({
@@ -137,19 +146,17 @@ class AddExpense extends React.Component {
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
+  totalExpense: state.wallet.totalExpense,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sendExpenseAction: (expense) => dispatch(addExpensesAction(expense)),
+  sendExpenseAction: (payload) => dispatch(addExpensesAction(payload)),
 });
 
 AddExpense.propTypes = {
-  expenses: PropTypes.arrayOf(
-    PropTypes.shape({
-      length: PropTypes.number.isRequired,
-    }),
-  ),
+  expenses: PropTypes.array.isRequired,
   sendExpenseAction: PropTypes.func.isRequired,
+  totalExpense: PropTypes.number.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddExpense);
