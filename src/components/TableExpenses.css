@@ -1,0 +1,45 @@
+.table-expenses-section {
+  background-color: #3F3618;
+  border: 2px solid #3F3618;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20px auto;
+  overflow: hidden;
+  width: 95%;
+}
+
+.table-expenses-section table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table-expenses-section table thead {
+  background-color: #6C6951;
+  color: #FFF;
+  height: 50px;
+}
+
+.table-expenses-section table thead tr th {
+  padding: 20px 5px;
+}
+
+.table-expenses-section table tbody {
+  border-top: 25px solid transparent;
+  color: #fff;
+}
+
+.table-expenses-section table tbody tr td {
+  text-align: center;
+  font-size: medium;
+  font-weight: 600;
+  max-width: 100px;
+  overflow: hidden;
+  padding: 20px 10px;
+}
+
+.table-expenses-section table tbody tr td i {
+  padding: 0 10px;
+  cursor: pointer;
+}

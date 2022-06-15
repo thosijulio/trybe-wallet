@@ -1,24 +1,28 @@
-import { CHANGE_CURRENCIES, ADD_EXPENSES } from "../actions";
+import { ADD_EXPENSES, REMOVE_EXPENSE } from "../actions";
 
 const INITIAL_STATE = {
-  currencies: [],
   expenses: [],
+  totalExpense: 0,
 }
 
 const walletReducer = (state = INITIAL_STATE, action) => {
   const { payload, type } = action;
 
   switch(type) {
-    case CHANGE_CURRENCIES:
+    case ADD_EXPENSES: {
       return {
-        ...state,
-        currencies: payload,
-      };
-    case ADD_EXPENSES:
-      return {
-        ...state,
-        expenses: payload,
+        expenses: payload.expenses,
+        totalExpense: payload.totalExpense,
       }
+    }
+
+    case REMOVE_EXPENSE: {
+      return {
+        expenses: state.expenses.filter((expense) => expense.id !== payload.id),
+        totalExpense: state.totalExpense - payload.valueConverted,
+      };
+    }
+
     default:
       return state;
   }

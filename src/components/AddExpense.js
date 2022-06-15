@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { addExpensesAction } from '../redux/actions';
 import getCurrencies from '../services/getCurrencies';
@@ -62,15 +61,25 @@ class AddExpense extends React.Component {
 
     getCurrencies()
       .then((currencies) => {
+        const { props: { totalExpense } } = this;
+        
+        const exchangeSelectedRate = currencies
+          .filter((exchange) => exchange.code === expense.currency)[0];
+        
+        const valueConverted = expense.value * exchangeSelectedRate.ask;
+
         const newExpenses = [
           ...expenses,
           {
             ...expense,
             exchangeRates: currencies,
             id: expenses.length + 1,
+            exchangeSelectedRate,
+            valueConverted,
           },
         ];
-        sendExpenseAction(newExpenses);
+        const newTotal = parseFloat(totalExpense) + parseFloat(valueConverted)
+        sendExpenseAction({expenses: newExpenses, totalExpense: newTotal });
       });
 
     this.setState((prevState) => ({
@@ -83,9 +92,6 @@ class AddExpense extends React.Component {
     const {
       handleFormChange,
       submitForm,
-      props: {
-        email,
-      },
       state: {
         expense: {
           description,
@@ -95,7 +101,7 @@ class AddExpense extends React.Component {
       },
     } = this;
 
-    return email ? (
+    return (
       <form className="add-expense-form">
         <label htmlFor="value">
           Valor:
@@ -135,25 +141,23 @@ class AddExpense extends React.Component {
         </label>
         <button id="btn-submit-form" onClick={ submitForm } type="button">Adicionar Despesa</button>
       </form>
-    ): <Navigate to="/" />
+    )
   } 
 }
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
-  email: state.user.email,
+  totalExpense: state.wallet.totalExpense,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sendExpenseAction: (expense) => dispatch(addExpensesAction(expense)),
+  sendExpenseAction: (payload) => dispatch(addExpensesAction(payload)),
 });
 
 AddExpense.propTypes = {
-  email: PropTypes.string.isRequired,
-  expenses: PropTypes.shape({
-    length: PropTypes.number.isRequired,
-  }),
+  expenses: PropTypes.array.isRequired,
   sendExpenseAction: PropTypes.func.isRequired,
+  totalExpense: PropTypes.number.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddExpense);
