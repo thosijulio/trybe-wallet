@@ -1,5 +1,5 @@
 # trybe-wallet
-Carteira de controle de gastos com conversor de moeda
+Carteira de controle de gastos com conversor de moeda.
 
 ## Sumário
 
